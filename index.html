@@ -45,27 +45,27 @@
         }
 
         [data-theme="light"] {
-            /* Light Theme (Requested Colors: Purple #535da1 & Greenish Teal) */
-            --bg-color: #ffffff;
-            --card-bg: rgba(255, 255, 255, 0.9);
+            /* Light Theme (Warm Gradient: Soft Yellow to Pink) */
+            --bg-color: linear-gradient(135deg, #FFF8E1 0%, #FFEBEE 100%);
+            --card-bg: rgba(255, 255, 255, 0.6);
             --text-primary: #2c3e50;
             --text-secondary: #5a6a7e;
-            --accent: #535da1;
-            /* The purple from your original design */
-            --accent-gradient: linear-gradient(135deg, #535da1 0%, #14B789 100%);
-            /* Purple to Green gradient */
-            --glass-border: 1px solid rgba(0, 0, 0, 0.08);
-            --nav-bg: rgba(255, 255, 255, 0.95);
+            --accent: #d946ef;
+            /* Magenta/Pink accent to match warm theme */
+            --accent-gradient: linear-gradient(135deg, #f43f5e 0%, #8b5cf6 100%);
+            /* Red to Purple */
+            --glass-border: 1px solid rgba(255, 255, 255, 0.5);
+            --nav-bg: rgba(255, 255, 255, 0.7);
             --timeline-line: rgba(0, 0, 0, 0.1);
-            --input-bg: rgba(0, 0, 0, 0.03);
-            --client-bg: rgba(83, 93, 161, 0.08);
-            /* Light purple tint for icons */
-            --client-hover: rgba(83, 93, 161, 0.15);
-            --hero-overlay: linear-gradient(120deg, rgba(83, 93, 161, 0.05) 0%, rgba(20, 183, 137, 0.05) 100%);
+            --input-bg: rgba(255, 255, 255, 0.5);
+            --client-bg: rgba(255, 255, 255, 0.4);
+            --client-hover: rgba(255, 255, 255, 0.8);
+            --hero-overlay: radial-gradient(circle at top right, rgba(255, 230, 230, 0.4), transparent 60%);
         }
 
         body {
-            background-color: var(--bg-color);
+            background: var(--bg-color);
+            min-height: 100vh;
             color: var(--text-primary);
             font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: hidden;
@@ -95,12 +95,17 @@
         }
 
         /* Navbar Glassmorphism */
+        /* Navbar Glassmorphism */
         .navbar {
-            background: var(--nav-bg);
+            background: var(--nav-bg) !important;
             backdrop-filter: blur(12px);
             border-bottom: var(--glass-border);
             padding: 1rem 0;
-            transition: all 0.5s ease;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
         .navbar-brand {
@@ -117,11 +122,14 @@
             font-weight: 500;
             position: relative;
             transition: color 0.3s ease;
+            margin: 0 5px;
         }
 
         .nav-link:hover,
         .nav-link.active {
             color: var(--accent) !important;
+            font-weight: 700;
+            text-shadow: none;
         }
 
         .nav-link::after {
@@ -135,7 +143,8 @@
             transition: width 0.3s ease;
         }
 
-        .nav-link:hover::after {
+        .nav-link:hover::after,
+        .nav-link.active::after {
             width: 100%;
         }
 
@@ -161,12 +170,21 @@
             transform: rotate(15deg);
         }
 
+        /* Selection Highlight Fix */
+        ::selection {
+            background: var(--accent);
+            color: #ffffff;
+            -webkit-text-fill-color: #ffffff;
+        }
+
         /* Hero Section */
         .hero {
             position: relative;
-            padding: 160px 0 100px;
+            padding: 80px 0 150px;
+            /* Extra bottom padding to avoid cut-off buttons */
             background: var(--hero-overlay);
             transition: background 0.5s ease;
+            min-height: 90vh;
         }
 
         .hero-title {
@@ -178,6 +196,30 @@
             -webkit-text-fill-color: transparent;
             margin-bottom: 1rem;
             animation: fadeInUp 0.8s ease-out;
+        }
+
+        .highlight-text {
+            display: inline-block;
+            background-color: #38bdf8;
+            background: var(--accent-gradient) !important;
+            color: #ffffff !important;
+            -webkit-text-fill-color: #ffffff !important;
+            padding: 12px 35px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(56, 189, 248, 0.4);
+            animation: fadeInUp 1.2s ease-out;
+            line-height: 1.4;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Specific fix for Light Mode visibility */
+        [data-theme="light"] .highlight-text {
+            background: linear-gradient(135deg, #535da1 0%, #14B789 100%) !important;
+            color: #ffffff !important;
+            box-shadow: 0 10px 25px rgba(83, 93, 161, 0.3);
         }
 
         .hero-subtitle {
@@ -368,41 +410,84 @@
         }
 
         /* Tech Icon Box Styling */
+        /* Tech Icon Box Styling */
         .tech-icon-box {
             background: var(--client-bg);
             padding: 15px;
             border-radius: 16px;
             text-align: center;
-            width: 100px;
-            /* Fixed width for alignment */
-            transition: all 0.3s ease;
+            width: 110px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
             backdrop-filter: blur(5px);
             border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            z-index: 1;
         }
 
-        .tech-icon-box i {
-            font-size: 3rem;
-            /* Large icons */
+        .tech-icon-box::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            padding: 2px;
+            background: var(--accent-gradient);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .tech-icon-box::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, var(--accent) 0%, transparent 60%);
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.5);
+            transition: all 0.4s ease;
+            z-index: -1;
+        }
+
+        .tech-icon-box img {
+            width: 50px;
+            height: 50px;
             display: block;
-            margin-bottom: 5px;
-            transition: transform 0.3s ease;
+            margin: 0 auto 10px;
+            transition: transform 0.4s ease, filter 0.4s ease;
         }
 
         .tech-icon-box span {
             color: var(--text-secondary);
             font-weight: 600;
+            transition: color 0.3s ease;
         }
 
         .tech-icon-box:hover {
-            background: var(--client-hover);
-            transform: translateY(-8px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            border-color: var(--accent);
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
         }
 
-        .tech-icon-box:hover i {
-            transform: scale(1.1);
+        .tech-icon-box:hover::before {
+            opacity: 1;
+        }
+
+        .tech-icon-box:hover::after {
+            opacity: 0.15;
+            transform: translate(-50%, -50%) scale(1.4);
+        }
+
+        .tech-icon-box:hover img {
+            transform: scale(1.2) rotate(5deg);
+            filter: drop-shadow(0 0 15px var(--accent));
+        }
+
+        .tech-icon-box:hover span {
+            color: var(--accent);
         }
 
         /* Animations */
@@ -478,6 +563,53 @@
         .delay-300 {
             transition-delay: 0.3s;
         }
+
+        /* Responsive Media Queries */
+        @media (max-width: 991px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .hero {
+                padding-top: 120px;
+                padding-bottom: 60px;
+                text-align: center;
+                min-height: auto;
+            }
+
+            .avatar-image-large {
+                width: 180px;
+                height: 180px;
+                margin-top: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .highlight-text {
+                font-size: 1.5rem;
+                padding: 5px 15px;
+            }
+
+            .d-flex.gap-3 {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .glass-card {
+                padding: 1.5rem;
+            }
+        }
     </style>
 </head>
 
@@ -504,10 +636,11 @@
                     <li class="nav-item"><a class="nav-link click-scroll" href="#section_1">Home</a></li>
                     <li class="nav-item"><a class="nav-link click-scroll" href="#section_2">About</a></li>
                     <li class="nav-item"><a class="nav-link click-scroll" href="#section_3">Experience</a></li>
-                    <li class="nav-item"><a class="nav-link click-scroll" href="#section_4">Projects</a></li>
-                    <li class="nav-item"><a class="nav-link click-scroll" href="#section_5">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link click-scroll" href="#section_4">Technologies</a></li>
+                    <li class="nav-item"><a class="nav-link click-scroll" href="#section_5">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link click-scroll" href="#section_6">Contact</a></li>
                     <li class="nav-item ms-lg-4 d-none d-lg-block">
-                        <a class="btn-custom" href="#section_5">Hire Me</a>
+                        <a class="btn-custom" href="#section_6">Hire Me</a>
                     </li>
                 </ul>
             </div>
@@ -523,8 +656,8 @@
                         <div class="hero-text reveal-left active">
                             <h3 class="hero-subtitle">Welcome to my portfolio</h3>
                             <h1 class="hero-title">I'm Rajesh M</h1>
-                            <h2 style="font-size: 2rem; margin-bottom: 20px; line-height: 1.4; color: var(--accent);">
-                                Web & Flutter Developer
+                            <h2 class="highlight-text">
+                                Web & App Developer
                             </h2>
                             <p class="mb-4" style="color: var(--text-secondary); font-size: 1.1rem; max-width: 600px;">
                                 Crafting high-performance web and mobile applications with React.js, Flutter, and modern
@@ -532,8 +665,8 @@
                                 Transforming ideas into scalable, premium digital experiences.
                             </p>
                             <div class="d-flex gap-3">
-                                <a href="#section_4" class="btn-custom">View Projects</a>
-                                <a href="#section_5" class="btn btn-outline-light rounded-pill px-4 py-2"
+                                <a href="#section_5" class="btn-custom">View Projects</a>
+                                <a href="#section_6" class="btn btn-outline-light rounded-pill px-4 py-2"
                                     style="border-color: var(--accent); color: var(--text-primary);">Contact Me</a>
                             </div>
                         </div>
@@ -687,7 +820,7 @@
         </section>
 
         <!-- Tech Stack / Clients -->
-        <section class="section-padding">
+        <section class="section-padding" id="section_4">
             <div class="container">
                 <div class="row text-center">
                     <div class="col-12 mb-5">
@@ -798,7 +931,7 @@
         </section>
 
         <!-- Projects Section -->
-        <section class="section-padding" id="section_4">
+        <section class="section-padding" id="section_5">
             <div class="container">
                 <h2 class="section-title reveal-up">Featured Projects</h2>
                 <div class="row">
@@ -891,7 +1024,7 @@
         </section>
 
         <!-- Contact Section -->
-        <section class="section-padding" id="section_5" style="background: rgba(255,255,255,0.02);">
+        <section class="section-padding" id="section_6" style="background: rgba(255,255,255,0.02);">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-8 text-center mb-5">
