@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 
 <head>
     <meta charset="utf-8">
@@ -20,25 +20,56 @@
     <link href="css/bootstrap-icons.css" rel="stylesheet">
     <link href="css/magnific-popup.css" rel="stylesheet">
     <link href="css/templatemo-first-portfolio-style.css" rel="stylesheet">
+    <!-- Devicon for Tech Stack Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicon/devicon@v2.16.0/devicon.min.css">
 
     <!-- Custom Premium Styles -->
     <style>
         :root {
-            --primary-bg: #0f172a;
-            --secondary-bg: #1e293b;
-            --accent: #38bdf8;
-            --accent-gradient: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+            /* Dark Theme (Default) */
+            --bg-color: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
             --text-primary: #f8fafc;
             --text-secondary: #94a3b8;
-            --card-bg: rgba(30, 41, 59, 0.7);
+            --accent: #38bdf8;
+            --accent-gradient: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
             --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+            --nav-bg: rgba(15, 23, 42, 0.95);
+            --timeline-line: rgba(255, 255, 255, 0.1);
+            --input-bg: rgba(255, 255, 255, 0.05);
+            --client-bg: rgba(255, 255, 255, 0.08);
+            /* Icon background */
+            --client-hover: rgba(255, 255, 255, 0.2);
+            --hero-overlay: radial-gradient(circle at top right, rgba(56, 189, 248, 0.1), transparent 40%),
+                radial-gradient(circle at bottom left, rgba(129, 140, 248, 0.1), transparent 40%);
+        }
+
+        [data-theme="light"] {
+            /* Light Theme (Requested Colors: Purple #535da1 & Greenish Teal) */
+            --bg-color: #ffffff;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --text-primary: #2c3e50;
+            --text-secondary: #5a6a7e;
+            --accent: #535da1;
+            /* The purple from your original design */
+            --accent-gradient: linear-gradient(135deg, #535da1 0%, #14B789 100%);
+            /* Purple to Green gradient */
+            --glass-border: 1px solid rgba(0, 0, 0, 0.08);
+            --nav-bg: rgba(255, 255, 255, 0.95);
+            --timeline-line: rgba(0, 0, 0, 0.1);
+            --input-bg: rgba(0, 0, 0, 0.03);
+            --client-bg: rgba(83, 93, 161, 0.08);
+            /* Light purple tint for icons */
+            --client-hover: rgba(83, 93, 161, 0.15);
+            --hero-overlay: linear-gradient(120deg, rgba(83, 93, 161, 0.05) 0%, rgba(20, 183, 137, 0.05) 100%);
         }
 
         body {
-            background-color: var(--primary-bg);
+            background-color: var(--bg-color);
             color: var(--text-primary);
             font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: hidden;
+            transition: background-color 0.5s ease, color 0.5s ease;
         }
 
         h1,
@@ -49,6 +80,8 @@
         h6 {
             font-family: 'Outfit', sans-serif;
             color: var(--text-primary);
+            letter-spacing: 1px;
+            transition: color 0.5s ease;
         }
 
         a {
@@ -63,11 +96,11 @@
 
         /* Navbar Glassmorphism */
         .navbar {
-            background: rgba(15, 23, 42, 0.85);
+            background: var(--nav-bg);
             backdrop-filter: blur(12px);
             border-bottom: var(--glass-border);
             padding: 1rem 0;
-            transition: all 0.3s ease;
+            transition: all 0.5s ease;
         }
 
         .navbar-brand {
@@ -83,6 +116,7 @@
             color: var(--text-secondary) !important;
             font-weight: 500;
             position: relative;
+            transition: color 0.3s ease;
         }
 
         .nav-link:hover,
@@ -105,12 +139,34 @@
             width: 100%;
         }
 
+        /* Theme Toggle Button */
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--text-secondary);
+            color: var(--text-secondary);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 20px;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: rotate(15deg);
+        }
+
         /* Hero Section */
         .hero {
             position: relative;
             padding: 160px 0 100px;
-            background: radial-gradient(circle at top right, rgba(56, 189, 248, 0.1), transparent 40%),
-                radial-gradient(circle at bottom left, rgba(129, 140, 248, 0.1), transparent 40%);
+            background: var(--hero-overlay);
+            transition: background 0.5s ease;
         }
 
         .hero-title {
@@ -139,6 +195,7 @@
             border: 4px solid var(--accent);
             box-shadow: 0 0 30px rgba(56, 189, 248, 0.3);
             animation: float 6s ease-in-out infinite;
+            transition: border-color 0.5s ease;
         }
 
         /* Glass Cards */
@@ -148,19 +205,22 @@
             border: var(--glass-border);
             border-radius: 16px;
             padding: 2rem;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.5s ease, border-color 0.5s ease;
             height: 100%;
         }
 
         .glass-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            border-color: rgba(56, 189, 248, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            /* More subtle shadow for light mode compatibility */
+            border-color: var(--accent);
         }
 
         /* Section Styling */
         .section-padding {
             padding: 100px 0;
+            transition: padding 0.3s ease;
+            /* Smooth resize if needed */
         }
 
         .section-title {
@@ -190,8 +250,9 @@
         .timeline-item {
             position: relative;
             padding-left: 2rem;
-            border-left: 2px solid rgba(255, 255, 255, 0.1);
+            border-left: 2px solid var(--timeline-line);
             margin-bottom: 2rem;
+            transition: border-color 0.5s ease;
         }
 
         .timeline-item::before {
@@ -204,6 +265,7 @@
             background: var(--accent);
             border-radius: 50%;
             box-shadow: 0 0 10px var(--accent);
+            transition: background-color 0.5s ease, box-shadow 0.5s ease;
         }
 
         .timeline-date {
@@ -221,9 +283,10 @@
 
         .progress {
             height: 8px;
-            background: rgba(255, 255, 255, 0.1);
+            background: var(--input-bg);
             border-radius: 4px;
             overflow: hidden;
+            transition: background-color 0.5s ease;
         }
 
         .progress-bar {
@@ -244,26 +307,29 @@
 
         .project-tags span {
             font-size: 0.75rem;
-            background: rgba(56, 189, 248, 0.15);
+            background: var(--input-bg);
             color: var(--accent);
+            border: 1px solid var(--accent);
             padding: 4px 12px;
             border-radius: 20px;
             margin-right: 8px;
             display: inline-block;
             margin-bottom: 8px;
+            transition: all 0.3s ease;
         }
 
         /* Contact */
         .contact-form .form-control {
-            background: rgba(255, 255, 255, 0.05);
+            background: var(--input-bg);
             border: var(--glass-border);
             color: var(--text-primary);
             border-radius: 8px;
             padding: 1rem;
+            transition: background 0.5s ease, color 0.5s ease, border-color 0.3s ease;
         }
 
         .contact-form .form-control:focus {
-            background: rgba(255, 255, 255, 0.1);
+            background: var(--input-bg);
             border-color: var(--accent);
             box-shadow: none;
         }
@@ -276,11 +342,67 @@
             border: none;
             font-weight: 600;
             box-shadow: 0 10px 20px rgba(56, 189, 248, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        [data-theme="light"] .btn-custom {
+            box-shadow: 0 10px 20px rgba(83, 93, 161, 0.3);
         }
 
         .btn-custom:hover {
             transform: translateY(-2px);
-            box-shadow: 0 15px 30px rgba(56, 189, 248, 0.3);
+            box-shadow: 0 15px 30px rgba(56, 189, 248, 0.4);
+        }
+
+        .clients-image {
+            background: var(--client-bg);
+            padding: 12px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .clients-image:hover {
+            background: var(--client-hover);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Tech Icon Box Styling */
+        .tech-icon-box {
+            background: var(--client-bg);
+            padding: 15px;
+            border-radius: 16px;
+            text-align: center;
+            width: 100px;
+            /* Fixed width for alignment */
+            transition: all 0.3s ease;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .tech-icon-box i {
+            font-size: 3rem;
+            /* Large icons */
+            display: block;
+            margin-bottom: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .tech-icon-box span {
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .tech-icon-box:hover {
+            background: var(--client-hover);
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border-color: var(--accent);
+        }
+
+        .tech-icon-box:hover i {
+            transform: scale(1.1);
         }
 
         /* Animations */
@@ -310,15 +432,51 @@
             }
         }
 
-        .clients-image {
-            filter: brightness(0) invert(1);
-            opacity: 0.7;
-            transition: all 0.3s;
+        /* Scroll Animations Classes */
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
         }
 
-        .clients-image:hover {
+        .reveal-up.active {
             opacity: 1;
-            transform: scale(1.1);
+            transform: translateY(0);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal-right.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Delays for staggered animations */
+        .delay-100 {
+            transition-delay: 0.1s;
+        }
+
+        .delay-200 {
+            transition-delay: 0.2s;
+        }
+
+        .delay-300 {
+            transition-delay: 0.3s;
         }
     </style>
 </head>
@@ -330,9 +488,16 @@
         <div class="container">
             <a href="index.html" class="navbar-brand">Rajesh M</a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
-            </button>
+            <div class="d-flex align-items-center order-lg-3">
+                <!-- Theme Toggle Button -->
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Dark/Light Mode">
+                    <i class="bi-moon-stars-fill" id="theme-icon"></i>
+                </button>
+
+                <button class="navbar-toggler ms-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+                </button>
+            </div>
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center">
@@ -341,7 +506,7 @@
                     <li class="nav-item"><a class="nav-link click-scroll" href="#section_3">Experience</a></li>
                     <li class="nav-item"><a class="nav-link click-scroll" href="#section_4">Projects</a></li>
                     <li class="nav-item"><a class="nav-link click-scroll" href="#section_5">Contact</a></li>
-                    <li class="nav-item ms-lg-4">
+                    <li class="nav-item ms-lg-4 d-none d-lg-block">
                         <a class="btn-custom" href="#section_5">Hire Me</a>
                     </li>
                 </ul>
@@ -355,11 +520,12 @@
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-7 col-12">
-                        <div class="hero-text">
+                        <div class="hero-text reveal-left active">
                             <h3 class="hero-subtitle">Welcome to my portfolio</h3>
                             <h1 class="hero-title">I'm Rajesh M</h1>
-                            <h2 style="font-size: 2rem; margin-bottom: 20px;">Full Stack Web & <span
-                                    style="color: var(--accent);">Flutter Developer</span></h2>
+                            <h2 style="font-size: 2rem; margin-bottom: 20px; line-height: 1.4; color: var(--accent);">
+                                Web & Flutter Developer
+                            </h2>
                             <p class="mb-4" style="color: var(--text-secondary); font-size: 1.1rem; max-width: 600px;">
                                 Crafting high-performance web and mobile applications with React.js, Flutter, and modern
                                 backend technologies.
@@ -367,14 +533,15 @@
                             </p>
                             <div class="d-flex gap-3">
                                 <a href="#section_4" class="btn-custom">View Projects</a>
-                                <a href="#section_5" class="btn btn-outline-light rounded-pill px-4 py-2">Contact Me</a>
+                                <a href="#section_5" class="btn btn-outline-light rounded-pill px-4 py-2"
+                                    style="border-color: var(--accent); color: var(--text-primary);">Contact Me</a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-5 col-12 text-center mt-5 mt-lg-0">
-                        <div style="position: relative;">
+                    <div class="col-lg-5 col-12 text-center mt-5 p-4 mt-lg-0">
+                        <div style="position: relative;" class="reveal-right active">
                             <div
-                                style="position: absolute; top: -20px; right: -20px; width: 100px; height: 100px; background: var(--accent); filter: blur(60px); opacity: 0.5;">
+                                style="position: absolute; top: 20px; right: -20px; width: 100px; height: 100px; background: var(--accent); filter: blur(60px); opacity: 0.5;">
                             </div>
                             <img src="images/RajeshM.jpg" class="avatar-image-large img-fluid" alt="Rajesh M">
                         </div>
@@ -388,7 +555,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6 col-12 mb-5 mb-lg-0">
-                        <div class="glass-card">
+                        <div class="glass-card reveal-up">
                             <h2 class="mb-4">About Me</h2>
                             <p class="lead" style="color: var(--text-secondary);">
                                 I am a passionate Full Stack Web & Flutter Developer with industry experience in
@@ -412,7 +579,7 @@
                     </div>
 
                     <div class="col-lg-6 col-12">
-                        <div class="glass-card">
+                        <div class="glass-card reveal-up delay-200">
                             <h3 class="mb-4">Technical Proficiency</h3>
 
                             <div class="skill-item">
@@ -474,11 +641,11 @@
         <!-- Experience Section -->
         <section class="section-padding" id="section_3" style="background: rgba(255,255,255,0.02);">
             <div class="container">
-                <h2 class="section-title">Professional Experience</h2>
+                <h2 class="section-title reveal-up">Professional Experience</h2>
                 <div class="row justify-content-center">
                     <div class="col-lg-10">
 
-                        <div class="timeline-item">
+                        <div class="timeline-item reveal-left delay-100">
                             <span class="timeline-date">July 2024 - Present</span>
                             <h4>Lead Front-end / Flutter App Developer</h4>
                             <h5 style="color: var(--text-secondary);">The Generic Technologies Pvt Ltd</h5>
@@ -491,7 +658,7 @@
                             </p>
                         </div>
 
-                        <div class="timeline-item">
+                        <div class="timeline-item reveal-left delay-200">
                             <span class="timeline-date">March 2024 - July 2024</span>
                             <h4>React.js Developer</h4>
                             <h5 style="color: var(--text-secondary);">Roostr.in</h5>
@@ -503,7 +670,7 @@
                             </p>
                         </div>
 
-                        <div class="timeline-item">
+                        <div class="timeline-item reveal-left delay-300">
                             <span class="timeline-date">Jan 2024 - March 2024</span>
                             <h4>React.js Developer Intern</h4>
                             <h5 style="color: var(--text-secondary);">AKV Technologies Pvt Ltd</h5>
@@ -524,18 +691,107 @@
             <div class="container">
                 <div class="row text-center">
                     <div class="col-12 mb-5">
-                        <h3 class="mb-4">Technologies I Work With</h3>
+                        <h3 class="mb-4 reveal-up">Technologies I Work With</h3>
                     </div>
                     <!-- Icons reused from original but styled better -->
-                    <div class="col-lg-12 d-flex flex-wrap justify-content-center gap-4">
-                        <img src="images/react.js-img.png" class="clients-image" style="height: 60px;" alt="React">
-                        <img src="images/html-5_919827.png" class="clients-image" style="height: 60px;" alt="HTML5">
-                        <img src="images/tailwind.png" class="clients-image" style="height: 60px;" alt="Tailwind">
-                        <img src="images/bootstrap.png" class="clients-image" style="height: 60px;" alt="Bootstrap">
-                        <img src="images/java.webp" class="clients-image" style="height: 60px;" alt="Java">
-                        <img src="images/sql.png" class="clients-image" style="height: 60px;" alt="SQL">
-                        <img src="images/postmanapi.png" class="clients-image" style="height: 60px;" alt="Postman">
-                        <img src="images/Figma.png" class="clients-image" style="height: 60px;" alt="Figma">
+                    <div class="col-lg-12 d-flex flex-wrap justify-content-center gap-4 reveal-up delay-200">
+
+                        <!-- Mobile -->
+                        <div class="tech-icon-box" title="Flutter">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg"
+                                width="45" />
+                            <span class="d-block mt-2 small">Flutter</span>
+                        </div>
+                        <div class="tech-icon-box" title="Dart">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg"
+                                width="45" />
+                            <span class="d-block mt-2 small">Dart</span>
+                        </div>
+
+                        <!-- Frontend -->
+                        <div class="tech-icon-box" title="React.js">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
+                                width="45" />
+                            <span class="d-block mt-2 small">React</span>
+                        </div>
+
+                        <div class="tech-icon-box" title="HTML5">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"
+                                width="45" />
+                            <span class="d-block mt-2 small">HTML5</span>
+                        </div>
+                        <div class="tech-icon-box" title="CSS3">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg"
+                                width="45" />
+                            <span class="d-block mt-2 small">CSS3</span>
+                        </div>
+                        <div class="tech-icon-box" title="Tailwind CSS">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg"
+                                width="45" />
+                            <span class="d-block mt-2 small">Tailwind</span>
+                        </div>
+                        <div class="tech-icon-box" title="Bootstrap">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg"
+                                width="45" />
+                            <span class="d-block mt-2 small">Bootstrap</span>
+                        </div>
+                        <div class="tech-icon-box" title="JavaScript">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
+                                width="45" />
+                            <span class="d-block mt-2 small">JS</span>
+                        </div>
+                        <div class="tech-icon-box" title="TypeScript">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg"
+                                width="45" />
+                            <span class="d-block mt-2 small">TS</span>
+                        </div>
+
+                        <!-- Backend -->
+                        <div class="tech-icon-box" title="Node.js">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg"
+                                width="45" />
+                            <span class="d-block mt-2 small">Node.js</span>
+                        </div>
+
+                        <div class="tech-icon-box" title="Java">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg"
+                                width="45" />
+                            <span class="d-block mt-2 small">Java</span>
+                        </div>
+                        <div class="tech-icon-box" title="Spring">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg"
+                                width="45" />
+                            <span class="d-block mt-2 small">Spring</span>
+                        </div>
+
+                        <!-- Database -->
+                        <div class="tech-icon-box" title="PostgreSQL">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg"
+                                width="45" />
+                            <span class="d-block mt-2 small">Postgres</span>
+                        </div>
+                        <div class="tech-icon-box" title="Firebase">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg"
+                                width="45" />
+                            <span class="d-block mt-2 small">Firebase</span>
+                        </div>
+
+                        <!-- Tools -->
+                        <div class="tech-icon-box" title="Git">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg"
+                                width="45" />
+                            <span class="d-block mt-2 small">Git</span>
+                        </div>
+                        <div class="tech-icon-box" title="Figma">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg"
+                                width="45" />
+                            <span class="d-block mt-2 small">Figma</span>
+                        </div>
+                        <div class="tech-icon-box" title="Redux">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg"
+                                width="45" />
+                            <span class="d-block mt-2 small">Redux</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -544,13 +800,13 @@
         <!-- Projects Section -->
         <section class="section-padding" id="section_4">
             <div class="container">
-                <h2 class="section-title">Featured Projects</h2>
+                <h2 class="section-title reveal-up">Featured Projects</h2>
                 <div class="row">
 
                     <!-- Project 1 -->
                     <div class="col-lg-4 col-md-6 col-12 mb-4">
-                        <div class="glass-card project-thumb h-100 p-0">
-                            <div class="p-4">
+                        <div class="glass-card project-thumb h-100 p-0 reveal-up delay-100">
+                            <div class="p-4 d-flex flex-column h-100">
                                 <span style="font-size: 2rem;">🥇</span>
                                 <h4 class="mt-3">AI-Powered KYC Verification</h4>
                                 <div class="project-tags mt-3">
@@ -559,19 +815,24 @@
                                     <span>Python (AI)</span>
                                     <span>PostgreSQL</span>
                                 </div>
-                                <p class="mt-3" style="color: var(--text-secondary);">
+                                <p class="mt-3 mb-4" style="color: var(--text-secondary);">
                                     Full-stack banking-grade verification system. Uses AI-powered OCR and Python
                                     services for document verification, secure authentication, and real-time fraud
                                     detection.
                                 </p>
+                                <div class="mt-auto">
+                                    <a href="#" class="btn btn-sm btn-outline-light rounded-pill px-4"
+                                        style="border-color: var(--accent); color: var(--text-primary);">View
+                                        Details</a>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Project 2 -->
                     <div class="col-lg-4 col-md-6 col-12 mb-4">
-                        <div class="glass-card project-thumb h-100 p-0">
-                            <div class="p-4">
+                        <div class="glass-card project-thumb h-100 p-0 reveal-up delay-200">
+                            <div class="p-4 d-flex flex-column h-100">
                                 <span style="font-size: 2rem;">🥈</span>
                                 <h4 class="mt-3">Daily News Mobile App</h4>
                                 <div class="project-tags mt-3">
@@ -580,18 +841,24 @@
                                     <span>REST APIs</span>
                                     <span>GNews API</span>
                                 </div>
-                                <p class="mt-3" style="color: var(--text-secondary);">
+                                <p class="mt-3 mb-4" style="color: var(--text-secondary);">
                                     Professional Flutter mobile app delivering country-based and category-based news
                                     with multi-language support and location-aware content.
                                 </p>
+                                <div class="mt-auto">
+                                    <a href="https://rajesh-m98.github.io/Daily_News_App/" target="_blank"
+                                        class="btn btn-sm btn-custom rounded-pill px-4">
+                                        <i class="bi-phone me-2"></i>View Live App
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Project 3 -->
                     <div class="col-lg-4 col-md-6 col-12 mb-4">
-                        <div class="glass-card project-thumb h-100 p-0">
-                            <div class="p-4">
+                        <div class="glass-card project-thumb h-100 p-0 reveal-up delay-300">
+                            <div class="p-4 d-flex flex-column h-100">
                                 <span style="font-size: 2rem;">🥉</span>
                                 <h4 class="mt-3">Medical Case Management</h4>
                                 <div class="project-tags mt-3">
@@ -600,16 +867,21 @@
                                     <span>PostgreSQL</span>
                                     <span>JWT</span>
                                 </div>
-                                <p class="mt-3" style="color: var(--text-secondary);">
+                                <p class="mt-3 mb-4" style="color: var(--text-secondary);">
                                     Full-stack mobile app for patient management and appointment scheduling. Features
                                     secure JWT authentication and scalable locally hosted backend APIs.
                                 </p>
+                                <div class="mt-auto">
+                                    <a href="#" class="btn btn-sm btn-outline-light rounded-pill px-4"
+                                        style="border-color: var(--accent); color: var(--text-primary);">View
+                                        Details</a>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Previous Projects (Condensed) -->
-                    <div class="col-12 mt-5 text-center">
+                    <div class="col-12 mt-5 text-center reveal-up delay-200">
                         <p style="color: var(--text-secondary);">Other works included: Roostr.in (Live Streaming), BryT
                             (Ecommerce), Godaddy Clone.</p>
                     </div>
@@ -623,7 +895,7 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-8 text-center mb-5">
-                        <h2 class="section-title">Get In Touch</h2>
+                        <h2 class="section-title reveal-up">Get In Touch</h2>
                         <p class="lead" style="color: var(--text-secondary);">Interested in working together? Let's
                             talk.</p>
                     </div>
@@ -631,41 +903,41 @@
 
                 <div class="row">
                     <div class="col-lg-5 col-12 mb-5">
-                        <div class="glass-card">
+                        <div class="glass-card reveal-left delay-100">
                             <h3 class="mb-4">Contact Info</h3>
                             <div class="d-flex align-items-center mb-4">
                                 <i class="bi-envelope fs-4 me-3 text-info"></i>
                                 <div>
                                     <h6 class="mb-0">Email</h6>
                                     <a href="mailto:rajeshr13455@gmail.com"
-                                        class="text-white">rajeshr13455@gmail.com</a>
+                                        style="color: var(--text-primary);">rajeshr13455@gmail.com</a>
                                 </div>
                             </div>
                             <div class="d-flex align-items-center mb-4">
                                 <i class="bi-phone fs-4 me-3 text-info"></i>
                                 <div>
                                     <h6 class="mb-0">Phone</h6>
-                                    <a href="tel:+916381005442" class="text-white">+91 6381005442</a>
+                                    <a href="tel:+916381005442" style="color: var(--text-primary);">+91 6381005442</a>
                                 </div>
                             </div>
                             <div class="d-flex align-items-center mb-4">
                                 <i class="bi-geo-alt fs-4 me-3 text-info"></i>
                                 <div>
                                     <h6 class="mb-0">Location</h6>
-                                    <p class="mb-0 text-white">Bangalore, Karnataka</p>
+                                    <p class="mb-0" style="color: var(--text-primary);">Bangalore, Karnataka</p>
                                 </div>
                             </div>
                             <div class="mt-4">
-                                <a href="https://github.com/rajesh-m98" target="_blank" class="text-white me-3 fs-3"><i
-                                        class="bi-github"></i></a>
-                                <a href="http://www.linkedin.com/in/rajeshm1998" target="_blank"
-                                    class="text-white me-3 fs-3"><i class="bi-linkedin"></i></a>
+                                <a href="https://github.com/rajesh-m98" target="_blank" class="me-3 fs-3"
+                                    style="color: var(--text-primary);"><i class="bi-github"></i></a>
+                                <a href="http://www.linkedin.com/in/rajeshm1998" target="_blank" class="me-3 fs-3"
+                                    style="color: var(--text-primary);"><i class="bi-linkedin"></i></a>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-lg-7 col-12">
-                        <form class="glass-card contact-form">
+                        <form class="glass-card contact-form reveal-right delay-200">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label class="mb-2">Your Name</label>
@@ -696,9 +968,9 @@
 
     </main>
 
-    <footer class="text-center py-4" style="background: rgba(15, 23, 42, 0.9);">
+    <footer class="text-center py-4" style="background: var(--nav-bg); border-top: var(--glass-border);">
         <div class="container">
-            <p class="mb-0 text-white-50">Copyright © 2024 Rajesh M. All rights reserved.</p>
+            <p class="mb-0" style="color: var(--text-secondary);">Copyright © 2024 Rajesh M. All rights reserved.</p>
         </div>
     </footer>
 
@@ -710,19 +982,103 @@
     <script src="js/jquery.magnific-popup.min.js"></script>
     <script src="js/magnific-popup-options.js"></script>
 
-    <!-- Custom animations script if needed, or simple scroll reveal -->
     <script>
-        // Simple Intersection Observer for scroll animations
+        // Theme Toggle Logic
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const htmlElement = document.documentElement;
+        const navbarTogglerIcon = document.querySelector('.navbar-toggler-icon');
+
+        // Check for saved user preference
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        htmlElement.setAttribute('data-theme', savedTheme);
+        updateIcon(savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateIcon(newTheme);
+        });
+
+        function updateIcon(theme) {
+            if (theme === 'dark') {
+                themeIcon.classList.remove('bi-sun-fill');
+                themeIcon.classList.add('bi-moon-stars-fill');
+                navbarTogglerIcon.style.filter = "invert(1)"; // White hamburger in dark mode
+            } else {
+                themeIcon.classList.remove('bi-moon-stars-fill');
+                themeIcon.classList.add('bi-sun-fill');
+                navbarTogglerIcon.style.filter = "invert(0)"; // Black hamburger in light mode
+            }
+        }
+
+        // --- Reversible Scroll Animation (Intersection Observer) ---
+        const observerOptions = {
+            threshold: 0.15, // Trigger when 15% visible
+            rootMargin: "0px 0px -50px 0px" // Slight offset
+        };
+
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
+            entries.forEach((entry) => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('show');
+                    entry.target.classList.add('active');
+                } else {
+                    // Remove active class when out of view to re-trigger animation on scroll back
+                    entry.target.classList.remove('active');
                 }
+            });
+        }, observerOptions);
+
+        const revealElements = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right');
+        revealElements.forEach((el) => observer.observe(el));
+
+
+        // --- Vanilla 3D Tilt Effect for Glass Cards ---
+        const cards = document.querySelectorAll('.glass-card');
+
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = ((y - centerY) / centerY) * -10; // Max rotation 10deg
+                const rotateY = ((x - centerX) / centerX) * 10;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+
+                // Add sheen effect
+                card.style.background = `linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)`;
+            });
+
+            // Reset on mouse leave
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+                card.style.background = 'var(--card-bg)'; // Reset background
             });
         });
 
-        // Add 'fade-in' class to elements you want to animate
-        // This is a basic example, CSS handles the animation for hero-title
+        // --- Typing Effect for Hero ---
+        const heroTitle = document.querySelector('.hero-title');
+        const text = heroTitle.innerText;
+        heroTitle.innerText = '';
+
+        let i = 0;
+        function typeWriter() {
+            if (i < text.length) {
+                heroTitle.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
+            }
+        }
+        // Start typing after a short delay
+        setTimeout(typeWriter, 500);
     </script>
 
 </body>
