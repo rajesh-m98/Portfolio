@@ -32,7 +32,7 @@ This portfolio is built with modern web design principles, focusing on aesthetic
 
 ## 🛠️ Tech Stack
 
-Built with vanilla technologies for maximum performance and control, keeping it lightweight yet powerful.
+Built for maximum performance and control, keeping it lightweight yet powerful.
 
 | Category | Technologies |
 | :--- | :--- |
