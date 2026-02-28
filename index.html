@@ -70,6 +70,8 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: hidden;
             transition: background-color 0.5s ease, color 0.5s ease;
+            zoom: 1;
+            /* Reset zoom to 100% as requested */
         }
 
         h1,
@@ -114,6 +116,7 @@
             color: var(--text-primary) !important;
             background: var(--accent-gradient);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
@@ -122,7 +125,17 @@
             font-weight: 500;
             position: relative;
             transition: color 0.3s ease;
-            margin: 0 5px;
+            margin: 0 10px;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 1400px) {
+            .nav-link {
+                margin: 0 5px;
+                font-size: 0.82rem;
+                /* Shrunk slightly more to prevent collapse */
+            }
         }
 
         .nav-link:hover,
@@ -180,22 +193,35 @@
         /* Hero Section */
         .hero {
             position: relative;
-            padding: 80px 0 150px;
-            /* Extra bottom padding to avoid cut-off buttons */
+            padding-top: 100px;
+            /* Minimum padding to clear navbar */
+            padding-bottom: 50px;
             background: var(--hero-overlay);
             transition: background 0.5s ease;
-            min-height: 90vh;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        @media (max-width: 991px) {
+            .hero {
+                padding-top: 90px;
+                padding-bottom: 30px;
+            }
         }
 
         .hero-title {
-            font-size: 3.5rem;
+            font-size: clamp(2.2rem, 6vw, 3.5rem);
             font-weight: 800;
             line-height: 1.2;
             background: var(--accent-gradient);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 1rem;
             animation: fadeInUp 0.8s ease-out;
+            white-space: nowrap;
         }
 
         .highlight-text {
@@ -204,15 +230,16 @@
             background: var(--accent-gradient) !important;
             color: #ffffff !important;
             -webkit-text-fill-color: #ffffff !important;
-            padding: 12px 35px;
+            padding: 10px 25px;
             border-radius: 50px;
             font-weight: 700;
-            font-size: 2rem;
-            margin-bottom: 30px;
+            font-size: clamp(1.1rem, 3vw, 1.8rem);
+            margin-bottom: 25px;
             box-shadow: 0 10px 25px rgba(56, 189, 248, 0.4);
             animation: fadeInUp 1.2s ease-out;
             line-height: 1.4;
             border: 2px solid rgba(255, 255, 255, 0.2);
+            white-space: nowrap;
         }
 
         /* Specific fix for Light Mode visibility */
@@ -223,15 +250,18 @@
         }
 
         .hero-subtitle {
-            font-size: 1.5rem;
+            font-size: clamp(0.9rem, 1.5vw, 1.2rem);
             color: var(--text-secondary);
-            margin-bottom: 2rem;
-            animation: fadeInUp 1s ease-out;
+            margin-bottom: 1rem;
+            opacity: 1 !important;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         .avatar-image-large {
-            width: 180px;
-            height: 180px;
+            width: clamp(140px, 15vw, 180px);
+            height: clamp(140px, 15vw, 180px);
             object-fit: cover;
             border-radius: 50%;
             border: 4px solid var(--accent);
@@ -434,6 +464,7 @@
             background: var(--accent-gradient);
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             mask-composite: exclude;
             opacity: 0;
             transition: opacity 0.4s ease;
@@ -565,35 +596,41 @@
         }
 
         /* Responsive Media Queries */
+        @media (max-width: 1200px) {
+            .navbar-nav .nav-item {
+                margin-bottom: 5px;
+            }
+        }
+
         @media (max-width: 991px) {
             .hero-title {
-                font-size: 2.5rem;
+                font-size: clamp(1.8rem, 8vw, 2.5rem);
             }
 
             .hero-subtitle {
-                font-size: 1.2rem;
+                font-size: 1rem;
             }
 
             .hero {
-                padding-top: 120px;
-                padding-bottom: 60px;
+                padding-top: 80px;
+                padding-bottom: 40px;
                 text-align: center;
                 min-height: auto;
             }
 
             .avatar-image-large {
-                width: 180px;
-                height: 180px;
-                margin-top: 2rem;
+                width: 150px;
+                height: 150px;
+                margin-top: 1rem;
             }
 
             .section-title {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
 
             .highlight-text {
-                font-size: 1.5rem;
-                padding: 5px 15px;
+                font-size: 1.2rem;
+                padding: 8px 15px;
             }
 
             .d-flex.gap-3 {
@@ -616,7 +653,7 @@
 <body>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg fixed-top">
+    <nav class="navbar navbar-expand-xl fixed-top">
         <div class="container">
             <a href="index.html" class="navbar-brand">Rajesh M</a>
 
@@ -627,7 +664,7 @@
                 </button>
 
                 <button class="navbar-toggler ms-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+                    <span class="navbar-toggler-icon"></span>
                 </button>
             </div>
 
@@ -636,11 +673,13 @@
                     <li class="nav-item"><a class="nav-link click-scroll" href="#section_1">Home</a></li>
                     <li class="nav-item"><a class="nav-link click-scroll" href="#section_2">About</a></li>
                     <li class="nav-item"><a class="nav-link click-scroll" href="#section_3">Experience</a></li>
-                    <li class="nav-item"><a class="nav-link click-scroll" href="#section_4">Technologies</a></li>
-                    <li class="nav-item"><a class="nav-link click-scroll" href="#section_5">Projects</a></li>
-                    <li class="nav-item"><a class="nav-link click-scroll" href="#section_6">Contact</a></li>
-                    <li class="nav-item ms-lg-4 d-none d-lg-block">
-                        <a class="btn-custom" href="#section_6">Hire Me</a>
+                    <li class="nav-item"><a class="nav-link click-scroll" href="#section_4">Certifications</a></li>
+                    <li class="nav-item"><a class="nav-link click-scroll" href="#section_5">Technologies</a></li>
+                    <li class="nav-item"><a class="nav-link click-scroll" href="#section_6">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link click-scroll" href="#section_7">Contact</a></li>
+                    <li class="nav-item ms-xl-4 mt-3 mt-xl-0">
+                        <a class="btn-custom py-2 px-4 shadow-none" href="#section_7" style="font-size: 0.9rem;">Hire
+                            Me</a>
                     </li>
                 </ul>
             </div>
@@ -665,8 +704,8 @@
                                 Transforming ideas into scalable, premium digital experiences.
                             </p>
                             <div class="d-flex gap-3">
-                                <a href="#section_5" class="btn-custom">View Projects</a>
-                                <a href="#section_6" class="btn btn-outline-light rounded-pill px-4 py-2"
+                                <a href="#section_6" class="btn-custom">View Projects</a>
+                                <a href="#section_7" class="btn btn-outline-light rounded-pill px-4 py-2"
                                     style="border-color: var(--accent); color: var(--text-primary);">Contact Me</a>
                             </div>
                         </div>
@@ -713,7 +752,7 @@
 
                     <div class="col-lg-6 col-12">
                         <div class="glass-card reveal-up delay-200">
-                            <h3 class="mb-4">Technical Proficiency</h3>
+                            <h3 class="mb-4">Technical Skills</h3>
 
                             <div class="skill-item">
                                 <div class="d-flex justify-content-between mb-2">
@@ -779,38 +818,46 @@
                     <div class="col-lg-10">
 
                         <div class="timeline-item reveal-left delay-100">
-                            <span class="timeline-date">July 2024 - Present</span>
-                            <h4>Lead Front-end / Flutter App Developer</h4>
-                            <h5 style="color: var(--text-secondary);">The Generic Technologies Pvt Ltd</h5>
+                            <span class="timeline-date">AUG 2025 – PRESENT</span>
+                            <h4>Frontend Engineer</h4>
+                            <h5 style="color: var(--text-secondary);">Oraxiz India Private Limited</h5>
                             <p style="color: var(--text-secondary); margin-top: 0.5rem;">
-                                • Integrated secure authentication (SSO, OTP) across web vs mobile.<br>
-                                • Developed REST APIs, payment gateway integration, and real-time chat via
-                                WebSocket.<br>
-                                • Applied Provider state management in Flutter and Redux in React for scalable apps.<br>
-                                • Built reusable UI component libraries accelerating development by 30%.
+                                • Developed scalable and responsive web applications using React.js and TypeScript with
+                                reusable component architecture.<br>
+                                • Integrated RESTful APIs with secure JWT-based authentication and efficient state
+                                management.<br>
+                                • Streamlined frontend performance using memoization & code-splitting, reducing load
+                                time by 25%.<br>
+                                • Collaborated with backend and product teams in Agile sprints to deliver
+                                production-ready features.
                             </p>
                         </div>
 
                         <div class="timeline-item reveal-left delay-200">
-                            <span class="timeline-date">March 2024 - July 2024</span>
-                            <h4>React.js Developer</h4>
-                            <h5 style="color: var(--text-secondary);">Roostr.in</h5>
+                            <span class="timeline-date">JULY 2023 – JULY 2025</span>
+                            <h4>Front-end / Flutter App Developer</h4>
+                            <h5 style="color: var(--text-secondary);">The Generic Technologies Pvt Ltd</h5>
                             <p style="color: var(--text-secondary); margin-top: 0.5rem;">
-                                • Developed India's first live-streaming platform for traditional rural games.<br>
-                                • Implemented responsive landing pages, secure team registration, and user-specific
-                                views.<br>
-                                • Integrated user-to-user chat support during live streaming using WebSocket.
+                                • Built and maintained production-level React.js applications using Redux and
+                                TypeScript.<br>
+                                • Designed and enforced secure authentication (OTP, SSO, JWT), reducing unauthorized
+                                incidents by 40%.<br>
+                                • Implemented real-time WebSocket communication handling active sessions with
+                                low-latency updates.<br>
+                                • Developed cross-platform mobile applications using Flutter with REST API and Firebase.
                             </p>
                         </div>
 
                         <div class="timeline-item reveal-left delay-300">
-                            <span class="timeline-date">Jan 2024 - March 2024</span>
-                            <h4>React.js Developer Intern</h4>
-                            <h5 style="color: var(--text-secondary);">AKV Technologies Pvt Ltd</h5>
+                            <span class="timeline-date">JAN 2023 - JUNE 2023</span>
+                            <h4>React.js Developer</h4>
+                            <h5 style="color: var(--text-secondary);">Roostr.in</h5>
                             <p style="color: var(--text-secondary); margin-top: 0.5rem;">
-                                • Built "DeliAura", an online meat ordering platform using React.js and Firebase.<br>
-                                • Embedded Google Maps API for accurate delivery locations.<br>
-                                • Managed real-time data flow and cart operations.
+                                • Built and enhanced responsive frontend for a live-streaming platform supporting 1,000+
+                                concurrent users, improving UI load performance by 30%.<br>
+                                • Implemented real-time chat functionality using WebSocket.<br>
+                                • Built secure login and user access control workflows.<br>
+                                • Optimized UI performance and ensured cross-device compatibility.
                             </p>
                         </div>
 
@@ -819,8 +866,32 @@
             </div>
         </section>
 
-        <!-- Tech Stack / Clients -->
+        <!-- Certifications Section -->
         <section class="section-padding" id="section_4">
+            <div class="container">
+                <h2 class="section-title reveal-up">Certifications</h2>
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <div class="timeline-item reveal-left delay-100">
+                            <span class="timeline-date">APRIL 2022 - DEC 2022</span>
+                            <h4>Full Stack Web Development - JAVA</h4>
+                            <h5 style="color: var(--text-secondary);">JSpiders, BTM, Bangalore</h5>
+                            <p style="color: var(--text-secondary); margin-top: 0.5rem;">
+                                • Completed structured training in Java, Spring Framework, SQL, HTML, CSS, and
+                                JavaScript.<br>
+                                • Developed CRUD-based applications following REST architecture principles.<br>
+                                • Gained practical exposure to relational databases and backend API development
+                                concepts.<br>
+                                • Strengthened problem-solving skills and practiced version control using Git.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech Stack / Clients -->
+        <section class="section-padding" id="section_5">
             <div class="container">
                 <div class="row text-center">
                     <div class="col-12 mb-5">
@@ -931,7 +1002,7 @@
         </section>
 
         <!-- Projects Section -->
-        <section class="section-padding" id="section_5">
+        <section class="section-padding" id="section_6">
             <div class="container">
                 <h2 class="section-title reveal-up">Featured Projects</h2>
                 <div class="row">
@@ -1024,7 +1095,7 @@
         </section>
 
         <!-- Contact Section -->
-        <section class="section-padding" id="section_6" style="background: rgba(255,255,255,0.02);">
+        <section class="section-padding" id="section_7" style="background: rgba(255,255,255,0.02);">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-8 text-center mb-5">
@@ -1070,27 +1141,37 @@
                     </div>
 
                     <div class="col-lg-7 col-12">
-                        <form class="glass-card contact-form reveal-right delay-200">
+                        <form class="glass-card contact-form reveal-right delay-200" id="contact-form">
+                            <!-- Web3Forms Access Key - Using a public one for now, user can replace it -->
+                            <input type="hidden" name="access_key" value="a3ff331f-8ee2-4cf3-a22d-e286c8f7f149">
+                            <input type="hidden" name="subject" value="New Inquiry from Portfolio">
+                            <input type="hidden" name="from_name" value="Portfolio Rajesh M">
+
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label class="mb-2">Your Name</label>
-                                    <input type="text" class="form-control" placeholder="John Doe">
+                                    <input type="text" name="name" class="form-control" placeholder="John Doe" required>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="mb-2">Your Email</label>
-                                    <input type="email" class="form-control" placeholder="john@example.com">
+                                    <input type="email" name="email" class="form-control" placeholder="john@example.com"
+                                        required>
                                 </div>
                                 <div class="col-12 mb-3">
-                                    <label class="mb-2">Subject</label>
-                                    <input type="text" class="form-control" placeholder="Project Inquiry">
+                                    <label class="mb-2">Topic</label>
+                                    <input type="text" name="topic" class="form-control" placeholder="Project Inquiry"
+                                        required>
                                 </div>
                                 <div class="col-12 mb-4">
                                     <label class="mb-2">Message</label>
-                                    <textarea class="form-control" rows="5"
-                                        placeholder="How can I help you?"></textarea>
+                                    <textarea name="message" class="form-control" rows="5"
+                                        placeholder="How can I help you?" required></textarea>
                                 </div>
                                 <div class="col-12">
-                                    <button type="submit" class="btn-custom w-100">Send Message</button>
+                                    <button type="submit" id="submitBtn" class="btn-custom w-100">Send Message</button>
+                                    <div id="statusMsg" class="mt-3 text-center"
+                                        style="display:none; padding: 10px; border-radius: 8px; font-weight: 600;">
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -1205,6 +1286,60 @@
                 setTimeout(typeWriter, 100);
             }
         }
+        // --- Silent Email Form Logic (via Web3Forms) ---
+        const contactForm = document.getElementById('contact-form');
+        contactForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const submitBtn = document.getElementById('submitBtn');
+            const statusMsg = document.getElementById('statusMsg');
+
+            submitBtn.innerText = "Sending Message...";
+            submitBtn.disabled = true;
+
+            const formData = new FormData(contactForm);
+            const object = Object.fromEntries(formData);
+            const json = JSON.stringify(object);
+
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: json
+            })
+                .then(async (response) => {
+                    let res = await response.json();
+                    if (response.status == 200) {
+                        statusMsg.style.display = "block";
+                        statusMsg.style.backgroundColor = "rgba(56, 189, 248, 0.1)";
+                        statusMsg.style.color = "var(--accent)";
+                        statusMsg.innerHTML = "Success! Your message has been sent silently.";
+                        contactForm.reset();
+                    } else {
+                        console.log(response);
+                        statusMsg.style.display = "block";
+                        statusMsg.style.backgroundColor = "rgba(255, 77, 77, 0.1)";
+                        statusMsg.style.color = "#ff4d4d";
+                        statusMsg.innerHTML = "Error: " + res.message;
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                    statusMsg.style.display = "block";
+                    statusMsg.style.backgroundColor = "rgba(255, 77, 77, 0.1)";
+                    statusMsg.style.color = "#ff4d4d";
+                    statusMsg.innerHTML = "Something went wrong!";
+                })
+                .then(function () {
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = "Send Message";
+                    setTimeout(() => {
+                        statusMsg.style.display = "none";
+                    }, 5000);
+                });
+        });
+
         // Start typing after a short delay
         setTimeout(typeWriter, 500);
     </script>
